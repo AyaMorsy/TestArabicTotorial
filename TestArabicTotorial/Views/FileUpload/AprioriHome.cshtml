@@ -1,0 +1,61 @@
+﻿
+@using NonFactors.Mvc.Grid;
+@using System;
+@model IEnumerable<BAL.ItemSet>
+
+@{
+    ViewData["Title"] = "AprioriHome";
+
+}
+
+<h1>AprioriHome</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@(Html
+.Grid(Model)
+.Build(columns =>
+{
+columns.Add(model => model.Label).Titled("Name");
+columns.Add(model => model.Support).Titled("Support");
+
+})
+.Filterable()
+.Sortable()
+.Pageable()
+)
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Label)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Support)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Count)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Label)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Support)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+
+            </tr>
+    }
+        </tbody>
+    </table>*@
