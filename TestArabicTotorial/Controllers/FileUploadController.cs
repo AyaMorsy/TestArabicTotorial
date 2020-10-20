@@ -22,10 +22,11 @@ namespace TestArabicTotorial.Controllers
         List<ItemSet> _LList = new List<ItemSet>();
         List<ItemSet> _L2List = new List<ItemSet>();
         List<AssociationRule> _Rules = new List<AssociationRule>();
-        public IActionResult AprioriHome()
-        {
-            return View();
-        }
+        //public IActionResult AprioriHome()
+        //{
+        //    TableModel table = new TableModel() { newList = newList, L1List = _LList, L2List = _L2List, Rules = _Rules };
+        //    return View(table);
+        //}
         public IActionResult Index()
         {
             TableModel table = new TableModel() { newList = newList, L1List = _LList, L2List = _L2List, Rules = _Rules };
@@ -63,13 +64,7 @@ namespace TestArabicTotorial.Controllers
            // return RedirectToAction(  (newList.ToList());
 
         }
-        [HttpPost]
-        public JsonResult Grid1(DataSourceRequest x)
-        {
-          return Json(newList.Skip(x.Page * 10).Take(10).ToList());
-
-        }
-
+     
 
 
         private void DoThings(IFormFile  newFile)
@@ -254,5 +249,37 @@ namespace TestArabicTotorial.Controllers
 
             return RedirectToAction("Index"); 
         }
+
+
+       
+        public IActionResult AprioriHome(List<IFormFile> files)
+        {
+            var watch = new System.Diagnostics.Stopwatch();
+
+            watch.Start();
+
+            if (files.Count>0 &&  files.First() != null )
+            {
+                var newFile = files.First();
+                TempData["FileUploaded"] = "File Successfully Uploaded";
+                DoThings(newFile);
+            }
+            else
+                TempData["FileUploaded"] = "please upload file ";
+            watch.Stop();
+            TimeElapsed = watch.ElapsedMilliseconds + "  MS";
+            TempData["TimeElapsed"] = TimeElapsed + "   Time elapsed ";
+            //var qry = newList.ToList().AsQueryable();
+            //var model = await PagingList.CreateAsync(qry, 10, page);
+            TableModel table = new TableModel() { newList = newList, L1List = _LList, L2List = _L2List, Rules = _Rules };
+            if (newList.Count > 0)
+            {
+                TempData["DataExists"] = "1";
+            }
+            return View(table);
+            // return RedirectToAction(  (newList.ToList());
+            // return View();
+        }
+
     }
 }
