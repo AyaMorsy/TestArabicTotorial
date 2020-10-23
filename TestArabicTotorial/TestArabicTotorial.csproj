@@ -11,6 +11,10 @@
     <PackageReference Include="ReflectionIT.Mvc.Paging" Version="4.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\File\" />
+  </ItemGroup>
+
 
 
 </Project>
